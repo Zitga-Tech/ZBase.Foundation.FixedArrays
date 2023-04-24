@@ -1,0 +1,14 @@
+{
+    "name": "ZBase.Foundation.FixedArrays",
+    "rootNamespace": "ZBase.Foundation.FixedArrays",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
