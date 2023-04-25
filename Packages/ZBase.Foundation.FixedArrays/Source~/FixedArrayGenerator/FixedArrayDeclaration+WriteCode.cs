@@ -5,6 +5,7 @@ namespace ZBase.Foundation.FixedArrays
     partial class FixedArrayDeclaration
     {
         private const string AGGRESSIVE_INLINING = "[global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]";
+        private const string GENERATED_CODE = "[global::System.CodeDom.Compiler.GeneratedCode(\"ZBase.Foundation.FixedArrays.FixedArrayGenerator\", \"1.0.1\")]";
 
         public string WriteCode()
         {
@@ -13,7 +14,7 @@ namespace ZBase.Foundation.FixedArrays
             var p = scopePrinter.printer;
             p.IncreasedIndent();
 
-            p.PrintLine("[global::System.Runtime.CompilerServices.CompilerGenerated]");
+            p.PrintLine(GENERATED_CODE);
             p.PrintLine("[global::System.Runtime.CompilerServices.UnsafeValueType]");
             p.PrintLine("[global::System.Runtime.InteropServices.StructLayout(global::System.Runtime.InteropServices.LayoutKind.Sequential, Pack = 0)]");
             p.PrintLine("[global::System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0044:Add readonly modifier\", Justification = \"Required for fixed-size arrays\")]");
@@ -180,6 +181,7 @@ namespace ZBase.Foundation.FixedArrays
 
         private void PrintEmptyEnumerator(ref Printer p, string elemTypeName)
         {
+            p.PrintLine(GENERATED_CODE);
             p.PrintLine($"public struct Enumerator : global::System.Collections.Generic.IEnumerator<{elemTypeName}>");
             p.OpenScope();
             {
@@ -198,6 +200,7 @@ namespace ZBase.Foundation.FixedArrays
 
         private void PrintEnumerator(ref Printer p, string elemTypeName)
         {
+            p.PrintLine(GENERATED_CODE);
             p.PrintLine($"public unsafe struct Enumerator : global::System.Collections.Generic.IEnumerator<{elemTypeName}>");
             p.OpenScope();
             {
