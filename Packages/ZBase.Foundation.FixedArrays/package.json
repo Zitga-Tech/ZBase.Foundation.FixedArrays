@@ -1,7 +1,7 @@
 {
   "name": "com.zbase.foundation.fixed-arrays",
   "displayName": "ZBase.Foundation.FixedArrays",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "unity": "2021.3",
   "documentationUrl": "https://github.com/Zitga-Tech/ZBase.Foundation.FixedArrays/blob/main/README.md",
   "type": "library",
