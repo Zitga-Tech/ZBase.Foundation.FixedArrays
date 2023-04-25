@@ -5,7 +5,8 @@ namespace ZBase.Foundation.FixedArrays
     partial class FixedArrayDeclaration
     {
         private const string AGGRESSIVE_INLINING = "[global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]";
-        private const string GENERATED_CODE = "[global::System.CodeDom.Compiler.GeneratedCode(\"ZBase.Foundation.FixedArrays.FixedArrayGenerator\", \"1.0.1\")]";
+        private const string GENERATED_CODE = "[global::System.CodeDom.Compiler.GeneratedCode(\"ZBase.Foundation.FixedArrays.FixedArrayGenerator\", \"1.0.2\")]";
+        private const string EXCLUDE_COVERAGE = "[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]";
 
         public string WriteCode()
         {
@@ -14,7 +15,6 @@ namespace ZBase.Foundation.FixedArrays
             var p = scopePrinter.printer;
             p.IncreasedIndent();
 
-            p.PrintLine(GENERATED_CODE);
             p.PrintLine("[global::System.Runtime.CompilerServices.UnsafeValueType]");
             p.PrintLine("[global::System.Runtime.InteropServices.StructLayout(global::System.Runtime.InteropServices.LayoutKind.Sequential, Pack = 0)]");
             p.PrintLine("[global::System.Diagnostics.CodeAnalysis.SuppressMessage(\"Style\", \"IDE0044:Add readonly modifier\", Justification = \"Required for fixed-size arrays\")]");
@@ -60,6 +60,7 @@ namespace ZBase.Foundation.FixedArrays
 
             p.OpenScope();
             {
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine($"public const int SIZE = {ArraySize};");
                 p.PrintEndLine();
 
@@ -73,6 +74,7 @@ namespace ZBase.Foundation.FixedArrays
                     p.PrintEndLine();
                 }
 
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine($"public int Length");
                 p.OpenScope();
                 {
@@ -81,6 +83,7 @@ namespace ZBase.Foundation.FixedArrays
                 }
                 p.CloseScope();
                 p.PrintEndLine();
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintBeginLine().Print($"public {elemTypeName} this[int index]");
 
                 if (ArraySize > 0)
@@ -126,7 +129,7 @@ namespace ZBase.Foundation.FixedArrays
                 }
 
                 p.PrintEndLine()
-                    .PrintLine(AGGRESSIVE_INLINING)
+                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(EXCLUDE_COVERAGE)
                     .PrintBeginLine()
                     .Print($"public global::System.Span<{elemTypeName}> AsSpan()");
 
@@ -143,7 +146,7 @@ namespace ZBase.Foundation.FixedArrays
 
                 p.PrintEndLine();
 
-                p.PrintLine(AGGRESSIVE_INLINING);
+                p.PrintLine(AGGRESSIVE_INLINING).PrintLine(EXCLUDE_COVERAGE);
 
                 if (ArraySize > 0)
                 {
@@ -155,11 +158,11 @@ namespace ZBase.Foundation.FixedArrays
                 }
 
                 p.PrintEndLine()
-                    .PrintLine(AGGRESSIVE_INLINING)
+                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(EXCLUDE_COVERAGE)
                     .PrintLine($"global::System.Collections.Generic.IEnumerator<{elemTypeName}> global::System.Collections.Generic.IEnumerable<{elemTypeName}>.GetEnumerator() => GetEnumerator();");
 
                 p.PrintEndLine()
-                    .PrintLine(AGGRESSIVE_INLINING)
+                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(EXCLUDE_COVERAGE)
                     .PrintLine("global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();");
 
                 p.PrintEndLine();
@@ -181,7 +184,7 @@ namespace ZBase.Foundation.FixedArrays
 
         private void PrintEmptyEnumerator(ref Printer p, string elemTypeName)
         {
-            p.PrintLine(GENERATED_CODE);
+            p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
             p.PrintLine($"public struct Enumerator : global::System.Collections.Generic.IEnumerator<{elemTypeName}>");
             p.OpenScope();
             {
@@ -200,7 +203,7 @@ namespace ZBase.Foundation.FixedArrays
 
         private void PrintEnumerator(ref Printer p, string elemTypeName)
         {
-            p.PrintLine(GENERATED_CODE);
+            p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
             p.PrintLine($"public unsafe struct Enumerator : global::System.Collections.Generic.IEnumerator<{elemTypeName}>");
             p.OpenScope();
             {
