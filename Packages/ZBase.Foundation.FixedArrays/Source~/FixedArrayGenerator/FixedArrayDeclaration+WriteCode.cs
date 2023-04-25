@@ -5,7 +5,7 @@ namespace ZBase.Foundation.FixedArrays
     partial class FixedArrayDeclaration
     {
         private const string AGGRESSIVE_INLINING = "[global::System.Runtime.CompilerServices.MethodImpl(global::System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]";
-        private const string GENERATED_CODE = "[global::System.CodeDom.Compiler.GeneratedCode(\"ZBase.Foundation.FixedArrays.FixedArrayGenerator\", \"1.0.2\")]";
+        private const string GENERATED_CODE = "[global::System.CodeDom.Compiler.GeneratedCode(\"ZBase.Foundation.FixedArrays.FixedArrayGenerator\", \"1.0.3\")]";
         private const string EXCLUDE_COVERAGE = "[global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]";
 
         public string WriteCode()
@@ -60,7 +60,7 @@ namespace ZBase.Foundation.FixedArrays
 
             p.OpenScope();
             {
-                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
+                p.PrintLine(GENERATED_CODE);
                 p.PrintLine($"public const int SIZE = {ArraySize};");
                 p.PrintEndLine();
 
@@ -129,7 +129,7 @@ namespace ZBase.Foundation.FixedArrays
                 }
 
                 p.PrintEndLine()
-                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(EXCLUDE_COVERAGE)
+                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE)
                     .PrintBeginLine()
                     .Print($"public global::System.Span<{elemTypeName}> AsSpan()");
 
@@ -146,7 +146,7 @@ namespace ZBase.Foundation.FixedArrays
 
                 p.PrintEndLine();
 
-                p.PrintLine(AGGRESSIVE_INLINING).PrintLine(EXCLUDE_COVERAGE);
+                p.PrintLine(AGGRESSIVE_INLINING).PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
 
                 if (ArraySize > 0)
                 {
@@ -158,11 +158,11 @@ namespace ZBase.Foundation.FixedArrays
                 }
 
                 p.PrintEndLine()
-                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(EXCLUDE_COVERAGE)
+                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE)
                     .PrintLine($"global::System.Collections.Generic.IEnumerator<{elemTypeName}> global::System.Collections.Generic.IEnumerable<{elemTypeName}>.GetEnumerator() => GetEnumerator();");
 
                 p.PrintEndLine()
-                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(EXCLUDE_COVERAGE)
+                    .PrintLine(AGGRESSIVE_INLINING).PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE)
                     .PrintLine("global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();");
 
                 p.PrintEndLine();
@@ -188,14 +188,27 @@ namespace ZBase.Foundation.FixedArrays
             p.PrintLine($"public struct Enumerator : global::System.Collections.Generic.IEnumerator<{elemTypeName}>");
             p.OpenScope();
             {
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine($"public {elemTypeName} Current => throw new global::System.IndexOutOfRangeException();");
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("public bool MoveNext() => false;");
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("public void Reset() { }");
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("public void Dispose() { }");
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("object global::System.Collections.IEnumerator.Current => throw new global::System.IndexOutOfRangeException();");
             }
             p.CloseScope();
@@ -210,7 +223,10 @@ namespace ZBase.Foundation.FixedArrays
                 p.PrintLine("private readonly void* _ptr;");
                 p.PrintLine("private int _index;");
                 p.PrintLine($"private {elemTypeName}? _current;");
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("public Enumerator(void* ptr)");
                 p.OpenScope();
                 {
@@ -219,7 +235,10 @@ namespace ZBase.Foundation.FixedArrays
                     p.PrintLine("_current = default;");
                 }
                 p.CloseScope();
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine($"public {elemTypeName} Current");
                 p.OpenScope();
                 {
@@ -227,7 +246,10 @@ namespace ZBase.Foundation.FixedArrays
                     p.PrintLine($"get => ({elemTypeName})_current!;");
                 }
                 p.CloseScope();
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("public bool MoveNext()");
                 p.OpenScope();
                 {
@@ -246,7 +268,10 @@ namespace ZBase.Foundation.FixedArrays
                     p.PrintLine("return false;");
                 }
                 p.CloseScope();
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("public void Reset()");
                 p.OpenScope();
                 {
@@ -254,9 +279,15 @@ namespace ZBase.Foundation.FixedArrays
                     p.PrintLine("_current = default;");
                 }
                 p.CloseScope();
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("public void Dispose() { }");
+
                 p.PrintEndLine();
+
+                p.PrintLine(GENERATED_CODE).PrintLine(EXCLUDE_COVERAGE);
                 p.PrintLine("object global::System.Collections.IEnumerator.Current");
                 p.OpenScope();
                 {
